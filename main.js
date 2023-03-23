@@ -5,13 +5,13 @@ class Producto{
         this.stock=stock;
         this.total=0;
     }
+
     get_datos(){
 
         console.log("<------- DATOS PRODUCTO ------->");
         console.log("Nombre: " , this.nombre);
         console.log("Precio: " , this.precio);
         console.log("Stock: ", this.stock);
-        console.log("");
     }
 }
 
