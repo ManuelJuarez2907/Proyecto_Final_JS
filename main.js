@@ -242,3 +242,66 @@ let btn_borrar = document.querySelectorAll(".borrar_elemento");
 for( let boton_b of btn_borrar){
     boton_b.addEventListener("click" , borrar_producto);
 }
+
+const geolocalizacion = () => {
+	let lat_long = document.getElementById("lat_y_long");
+    lat_long.innerHTML =    `<span>Latitud:</span>
+                            <span id="latitud"></span>
+                            <span>Longitud:</span>
+                            <span id="longitud"></span>`;
+    if (!"geolocation" in navigator) {
+		return alert("Tu navegador no soporta el acceso a la ubicación. Intenta con otro");
+	}
+
+	const $latitud = document.querySelector("#latitud");
+	const $longitud = document.querySelector("#longitud");
+
+    let lat="";
+    let long="";
+
+	const onUbicacionConcedida = ubicacion => {
+		console.log("Tengo la ubicación: ", ubicacion);
+		const coordenadas = ubicacion.coords;
+
+		$latitud.innerText = coordenadas.latitude;
+        lat = coordenadas.latitude;		
+        $longitud.innerText = coordenadas.longitude;
+        long = coordenadas.longitude;
+        
+        console.log(lat);
+        console.log(long);
+        
+        clima( lat, long);
+	}
+	const onErrorDeUbicacion = err => {
+		$latitud.innerText = "Error obteniendo ubicación: " + err.message;
+		$longitud.innerText = "Error obteniendo ubicación: " + err.message;
+		console.log("Error obteniendo ubicación: ", err);
+	}
+
+	const opcionesDeSolicitud = {
+		enableHighAccuracy: true, // Alta precisión
+		maximumAge: 0, // No queremos caché
+	};
+
+	$latitud.innerText = "Cargando...";
+	$longitud.innerText = "Cargando...";
+	navigator.geolocation.getCurrentPosition(onUbicacionConcedida, onErrorDeUbicacion, opcionesDeSolicitud);
+
+};
+
+function clima(lat,long){
+    let key_weather= "c90f8ab5c17890023181c4877a5b61e9";
+    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=metric&lang=es&appid=${key_weather}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+        });
+    //IMPLEMENTAR API
+    //GUARDAR COMPRA EN LS PARA CUANDO SE CIERRE LA PESTAÑA
+    //API KEY WEATHER = c90f8ab5c17890023181c4877a5b61e9
+}
+
+let btn_geolocalizacion = document.getElementById("btn_geolocalizacion")
+console.log(btn_geolocalizacion);
+btn_geolocalizacion.addEventListener("click", geolocalizacion);
