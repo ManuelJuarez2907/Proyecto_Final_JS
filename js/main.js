@@ -18,7 +18,7 @@ class Producto{
 
 
 
-let lista_de_usuarios = [];
+let lista_de_usuarios = [{nombre:"",password:""}];
 function registrar(){
     let nombre_usuario = document.getElementById("user");
     let pass_usuario = document.getElementById("pass");
