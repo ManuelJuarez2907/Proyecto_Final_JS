@@ -305,6 +305,7 @@ function clima(lat,long){
         .then(response => response.json())
         .then(data => {
             console.log(data)
+            
             clima = document.getElementById("clima");
             clima.innerHTML =   `   <h4>Ubicación: ${data.name}</h4>
                                     <p>Temperatura: ${data.main.temp}</p>
