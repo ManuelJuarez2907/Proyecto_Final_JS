@@ -315,6 +315,7 @@ function clima(lat,long){
     //IMPLEMENTAR API --LISTO
     //GUARDAR COMPRA EN LS PARA CUANDO SE CIERRE LA PESTAÑA
     //API KEY WEATHER = c90f8ab5c17890023181c4877a5b61e9
+    
 }
 
 let btn_geolocalizacion = document.getElementById("btn_geolocalizacion")
