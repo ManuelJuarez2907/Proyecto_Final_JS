@@ -61,6 +61,7 @@ function login(){
                 template=template+template_productos;
             }
             productos.innerHTML = template;
+            document.getElementById("aparecer_onclick").innerHTML = `<button id="btn_aparecer_carrito" onclick="aparecer_carrito();">Mostrar carrito</button>`;
         }else if(nombre_usuario.value!=usuario.nombre){
             cajas.innerHTML=`<h2>Usuario no registrado.</h2>`;
         }else if(nombre_usuario.value==usuario.nombre && pass_usuario.value!=usuario.password){
@@ -108,7 +109,22 @@ function agregar_al_carrito(e){
     mostrar_carrito( producto_para_agregar);
 }
 
-
+function aparecer_carrito(){
+    let carrito = document.getElementById("carrito");
+    let btn_aparecer_carrito = document.getElementById("btn_aparecer_carrito");
+    
+    
+    if(carrito.style.display != "block"){
+        carrito.style.display = "block";
+        console.log("carritonblock");
+        btn_aparecer_carrito.innerHTML = `Ocultar carrito`;
+    }else{
+        carrito.style.display = "none";
+        console.log("carritonone");
+        btn_aparecer_carrito.innerHTML = `Mostrar carrito`;
+    }
+    
+}
 
 function mostrar_carrito( producto_para_agregar){
     for(producto of lista_de_productos){
@@ -169,12 +185,6 @@ function borrar_producto(e){
     abuelo.remove();
 
 }
-
-
-
-
-
-
 
 let cajas = document.getElementById("cajas");
 
@@ -296,8 +306,13 @@ function clima(lat,long){
         .then(response => response.json())
         .then(data => {
             console.log(data)
-        });
-    //IMPLEMENTAR API
+            clima = document.getElementById("clima");
+            clima.innerHTML =   `   <h4>Ubicación: ${data.name}</h4>
+                                    <p>Temperatura: ${data.main.temp}</p>
+                                    <p>Humedad: ${data.main.pressure}</p>
+                                    <p>Sensacion Termica: ${data.main.feels_like}</p>`;
+            });
+    //IMPLEMENTAR API --LISTO
     //GUARDAR COMPRA EN LS PARA CUANDO SE CIERRE LA PESTAÑA
     //API KEY WEATHER = c90f8ab5c17890023181c4877a5b61e9
 }
